@@ -40,7 +40,7 @@
 <body>
 
 <div class="container">
-    <button class="download-btn" onclick="taiHoaDon()">📸 TẢI ẢNH HÓA ĐƠN RÕ NÉT</button>
+    <button class="download-btn" onclick="taiHoaDon()">📸 TẢI ẢNH HÓA ĐƠN </button>
 
     <div id="captureArea">
         <h2>TÍNH TIỀN TRỌ</h2>
@@ -51,14 +51,14 @@
                 <input type="text" id="soPhong" class="input-style" placeholder="01" oninput="tinhToan()">
             </div>
             <div class="col">
-                <label>SỐ NGƯỜI MẠNG</label>
+                <label>SỐ NGƯỜI DÙNG MẠNG</label>
                 <input type="number" id="soNguoiMang" class="input-style" placeholder="0" oninput="tinhToan()">
             </div>
         </div>
 
         <div class="row">
             <div class="col">
-                <label>ĐIỆN (MỚI - CŨ)</label>
+                <label>SỐ ĐIỆN (MỚI - CŨ)</label>
                 <div style="display: flex; gap: 5px;">
                     <input type="number" id="dienMoi" class="input-style" placeholder="Mới" oninput="tinhToan()">
                     <input type="number" id="dienCu" class="input-style" placeholder="Cũ" oninput="tinhToan()">
@@ -68,7 +68,7 @@
 
         <div class="row">
             <div class="col">
-                <label>NƯỚC (MỚI - CŨ)</label>
+                <label>SỐ NƯỚC (MỚI - CŨ)</label>
                 <div style="display: flex; gap: 5px;">
                     <input type="number" id="nuocMoi" class="input-style" placeholder="Mới" oninput="tinhToan()">
                     <input type="number" id="nuocCu" class="input-style" placeholder="Cũ" oninput="tinhToan()">
@@ -79,7 +79,7 @@
         <div class="result-box">
             <div class="result-line"><span>Phòng:</span> <span id="resPhong" class="highlight">...</span></div>
             <div class="result-line"><span>Tiền phòng:</span> <span>600,000 đ</span></div>
-            <div class="result-line"><span>Mạng (30k/ng):</span> <span id="resMang">0</span> đ</div>
+            <div class="result-line"><span>Mạng (30k/người):</span> <span id="resMang">0</span> đ</div>
             <div class="result-line"><span>Vệ sinh:</span> <span>5,000 đ</span></div>
             <div class="result-line">
                 <span>Điện (<span id="chuDien" class="highlight">0</span> số x 4k):</span> 
