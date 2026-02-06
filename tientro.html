@@ -3,105 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thanh Toán Tiền Trọ</title>
+    <title>Danh Sách Hóa Đơn Phòng</title>
     <style>
-        /* Cố định menu chọn phòng ở trên cùng */
-        .menu-tong {
-            position: sticky;
-            top: 0;
-            background: #1a73e8;
-            padding: 10px;
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            z-index: 1000;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        body { 
+            font-family: 'Segoe UI', Arial, sans-serif; 
+            background-color: #f0f2f5; 
+            display: flex; 
+            justify-content: center; 
+            padding: 15px;
+            margin: 0;
         }
-        .btn-nav {
-            background: white;
-            color: #1a73e8;
-            border: none;
-            padding: 8px 12px;
-            border-radius: 5px;
-            font-weight: bold;
-            text-decoration: none;
-            font-size: 14px;
-        }
-        
-        body { font-family: sans-serif; background: #f4f7f6; margin: 0; padding-bottom: 50px; }
-        .container { display: flex; flex-direction: column; align-items: center; padding: 20px; }
-        
-        .room-section { 
-            background: white;
-            margin: 20px 0;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            width: 100%;
-            max-width: 400px;
-            text-align: center;
-            /* Tạo khoảng cách để khi cuộn xuống không bị che bởi menu */
-            scroll-margin-top: 70px; 
-        }
-
-        .room-title { font-size: 22px; font-weight: bold; margin-bottom: 15px; color: #333; }
-        
-        .invoice-img { 
+        .container { 
             width: 100%; 
-            border-radius: 10px; 
+            max-width: 500px; 
+        }
+        h2 { 
+            text-align: center; 
+            color: #1a73e8; 
+            text-transform: uppercase;
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+        
+        /* Cấu trúc từng phòng */
+        .room-card {
+            background: white;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+        .room-name {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 12px;
+            display: block;
+            border-bottom: 2px solid #f0f2f5;
+            padding-bottom: 8px;
+        }
+        
+        /* Định dạng ảnh hóa đơn */
+        .bill-image {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
             border: 1px solid #ddd;
-            margin-bottom: 15px;
+            display: block;
+            margin: 0 auto;
         }
 
-        .download-btn {
-            display: inline-block;
-            background-color: #28a745;
-            color: white;
-            padding: 12px 25px;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: bold;
+        /* Hiệu ứng khi nhấn vào ảnh trên điện thoại */
+        .bill-image:active {
+            transform: scale(0.98);
+            opacity: 0.9;
         }
     </style>
 </head>
 <body>
 
-<div class="menu-tong">
-    <a href="#phong1" class="btn-nav">PHÒNG 1</a>
-    <a href="#phong2" class="btn-nav">PHÒNG 2</a>
-    <a href="#phong3" class="btn-nav">PHÒNG 3</a>
-    <a href="#phong4" class="btn-nav">PHÒNG 4</a>
-</div>
-
 <div class="container">
-    <h2 style="color: #1a73e8;">HÓA ĐƠN THÁNG 02/2026</h2>
+    <h2>Danh Sách Hóa Đơn</h2>
 
-    <div id="phong1" class="room-section">
-        <div class="room-title">PHÒNG 1</div>
-        <img src="./ẢNH TIỀN TRỌ/phong1-6.2.2026.jpg" alt="Ảnh Phòng 1" class="invoice-img">
-        <br>
-        <a href="./ẢNH TIỀN TRỌ/phong1-6.2.2026.jpg" download class="download-btn">TẢI ẢNH</a>
+    <div class="room-card">
+        <span class="room-name">PHÒNG 01</span>
+        <img src="https://via.placeholder.com/400x600?text=Anh+Hoa+Don+Phong+01" alt="Hóa đơn phòng 01" class="bill-image">
     </div>
 
-    <div id="phong2" class="room-section">
-        <div class="room-title">PHÒNG 2</div>
-        <img src="phong2.jpg" alt="Ảnh Phòng 2" class="invoice-img">
-        <br>
-        <a href="phong2.jpg" download class="download-btn">TẢI ẢNH</a>
+    <div class="room-card">
+        <span class="room-name">PHÒNG 02</span>
+        <img src="https://via.placeholder.com/400x600?text=Anh+Hoa+Don+Phong+02" alt="Hóa đơn phòng 02" class="bill-image">
     </div>
 
-    <div id="phong3" class="room-section">
-        <div class="room-title">PHÒNG 3</div>
-        <img src="phong3.jpg" alt="Ảnh Phòng 3" class="invoice-img">
-        <br>
-        <a href="phong3.jpg" download class="download-btn">TẢI ẢNH</a>
+    <div class="room-card">
+        <span class="room-name">PHÒNG 03</span>
+        <img src="https://via.placeholder.com/400x600?text=Anh+Hoa+Don+Phong+03" alt="Hóa đơn phòng 03" class="bill-image">
     </div>
 
-    <div id="phong4" class="room-section">
-        <div class="room-title">PHÒNG 4</div>
-        <img src="phong4.jpg" alt="Ảnh Phòng 4" class="invoice-img">
-        <br>
-        <a href="phong4.jpg" download class="download-btn">TẢI ẢNH</a>
+    <div class="room-card">
+        <span class="room-name">PHÒNG 04</span>
+        <img src="https://via.placeholder.com/400x600?text=Anh+Hoa+Don+Phong+04" alt="Hóa đơn phòng 04" class="bill-image">
     </div>
 
 </div>
