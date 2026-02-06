@@ -4,97 +4,99 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tính Tiền Trọ</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
-        body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #f0f2f5; display: flex; justify-content: center; padding: 20px; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f2f5; display: flex; flex-direction: column; align-items: center; padding: 20px; }
         .container { background: white; padding: 25px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 100%; max-width: 450px; }
-        h2 { text-align: center; color: #1a73e8; margin-bottom: 25px; text-transform: uppercase; }
         
-        /* Chia hàng và cột */
+        /* Vùng chụp ảnh hóa đơn */
+        #captureArea { background: white; padding: 15px; border-radius: 10px; }
+
+        h2 { text-align: center; color: #1a73e8; margin-bottom: 25px; text-transform: uppercase; margin-top: 0; }
+        
         .row { display: flex; gap: 15px; margin-bottom: 15px; }
         .col { flex: 1; }
+        label { display: block; margin-bottom: 8px; font-weight: bold; font-size: 13px; color: #444; }
         
-        /* Label riêng biệt và in đậm */
-        label { display: block; margin-bottom: 8px; font-weight: bold; font-size: 14px; color: #333; }
-        
-        input { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 8px; box-sizing: border-box; font-size: 16px; }
-        input:focus { border-color: #1a73e8; outline: none; background-color: #f8fbff; }
+        .input-style { 
+            width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; 
+            box-sizing: border-box; font-size: 16px; background: #f9f9f9;
+        }
 
         .result-box { background: #f8f9fa; padding: 20px; border-radius: 10px; margin-top: 20px; border: 1px solid #e1e4e8; }
         .result-line { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 15px; border-bottom: 1px solid #eee; padding-bottom: 4px; }
         .total-price { font-size: 24px; color: #d93025; font-weight: bold; text-align: center; margin-top: 15px; padding-top: 10px; border-top: 2px dashed #ccc; }
         
-        .qr-section { text-align: center; margin-top: 25px; }
-        .qr-section img { width: 220px; height: 220px; border-radius: 8px; border: 1px solid #ddd; }
+        /* Nút tải ảnh */
+        .download-btn {
+            width: 100%; background-color: #1a73e8; color: white; border: none; padding: 15px;
+            border-radius: 8px; font-weight: bold; font-size: 16px; cursor: pointer; margin-bottom: 20px; transition: 0.3s;
+        }
+        .download-btn:hover { background-color: #1557b0; }
+
         .highlight { font-weight: bold; color: #1a73e8; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h2>Tính Tiền Trọ</h2>
-    
-    <div class="row">
-        <div class="col">
-            <label>SỐ PHÒNG</label>
-            <input type="text" id="soPhong" placeholder="Ví dụ: 01" oninput="tinhToan()">
-        </div>
-        <div class="col">
-            <label>SỐ NGƯỜI DÙNG MẠNG</label>
-            <input type="number" id="soNguoiMang" placeholder="0" oninput="tinhToan()">
-        </div>
-    </div>
+    <button class="download-btn" onclick="taiHoaDon()">📸 TẢI ẢNH HÓA ĐƠN RÕ NÉT</button>
 
-    <div class="row">
-        <div class="col">
-            <label>CHỈ SỐ ĐIỆN MỚI</label>
-            <input type="number" id="dienMoi" placeholder="0" oninput="tinhToan()">
+    <div id="captureArea">
+        <h2>TÍNH TIỀN TRỌ</h2>
+        
+        <div class="row">
+            <div class="col">
+                <label>SỐ PHÒNG</label>
+                <input type="text" id="soPhong" class="input-style" placeholder="01" oninput="tinhToan()">
+            </div>
+            <div class="col">
+                <label>SỐ NGƯỜI MẠNG</label>
+                <input type="number" id="soNguoiMang" class="input-style" placeholder="0" oninput="tinhToan()">
+            </div>
         </div>
-        <div class="col">
-            <label>CHỈ SỐ ĐIỆN CŨ</label>
-            <input type="number" id="dienCu" placeholder="0" oninput="tinhToan()">
-        </div>
-    </div>
 
-    <div class="row">
-        <div class="col">
-            <label>CHỈ SỐ NƯỚC MỚI</label>
-            <input type="number" id="nuocMoi" placeholder="0" oninput="tinhToan()">
+        <div class="row">
+            <div class="col">
+                <label>ĐIỆN (MỚI - CŨ)</label>
+                <div style="display: flex; gap: 5px;">
+                    <input type="number" id="dienMoi" class="input-style" placeholder="Mới" oninput="tinhToan()">
+                    <input type="number" id="dienCu" class="input-style" placeholder="Cũ" oninput="tinhToan()">
+                </div>
+            </div>
         </div>
-        <div class="col">
-            <label>CHỈ SỐ NƯỚC CŨ</label>
-            <input type="number" id="nuocCu" placeholder="0" oninput="tinhToan()">
-        </div>
-    </div>
 
-    <div class="result-box">
-        <div class="result-line"><span>Phòng:</span> <span id="resPhong" class="highlight">...</span></div>
-        <div class="result-line"><span>Tiền phòng:</span> <span>600,000 đ</span></div>
-        <div class="result-line"><span>Mạng (30k/ng):</span> <span id="resMang">0</span> đ</div>
-        <div class="result-line"><span>Vệ sinh:</span> <span>5,000 đ</span></div>
-        <div class="result-line">
-            <span>Điện (<span id="chuDien" class="highlight">0</span> số x 4k):</span> 
-            <span><b id="resDien">0</b> đ</span>
+        <div class="row">
+            <div class="col">
+                <label>NƯỚC (MỚI - CŨ)</label>
+                <div style="display: flex; gap: 5px;">
+                    <input type="number" id="nuocMoi" class="input-style" placeholder="Mới" oninput="tinhToan()">
+                    <input type="number" id="nuocCu" class="input-style" placeholder="Cũ" oninput="tinhToan()">
+                </div>
+            </div>
         </div>
-        <div class="result-line">
-            <span>Nước (<span id="chuNuoc" class="highlight">0</span> khối x 12k):</span> 
-            <span><b id="resNuoc">0</b> đ</span>
-        </div>
-        <div class="total-price">TỔNG: <span id="resTong">0</span> VNĐ</div>
-    </div>
 
-    <div class="qr-section">
-        <p><b>Quét mã thanh toán:</b></p>
-        <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=ACCOUNT_INFO" alt="QR Code">
+        <div class="result-box">
+            <div class="result-line"><span>Phòng:</span> <span id="resPhong" class="highlight">...</span></div>
+            <div class="result-line"><span>Tiền phòng:</span> <span>600,000 đ</span></div>
+            <div class="result-line"><span>Mạng (30k/ng):</span> <span id="resMang">0</span> đ</div>
+            <div class="result-line"><span>Vệ sinh:</span> <span>5,000 đ</span></div>
+            <div class="result-line">
+                <span>Điện (<span id="chuDien" class="highlight">0</span> số x 4k):</span> 
+                <span><b id="resDien">0</b> đ</span>
+            </div>
+            <div class="result-line">
+                <span>Nước (<span id="chuNuoc" class="highlight">0</span> khối x 12k):</span> 
+                <span><b id="resNuoc">0</b> đ</span>
+            </div>
+            <div class="total-price">TỔNG: <span id="resTong">0</span> VNĐ</div>
+        </div>
     </div>
 </div>
 
 <script>
     function tinhToan() {
-        const GIA_PHONG = 600000;
-        const GIA_MANG_NGUOI = 30000;
-        const GIA_VS = 5000;
-        const GIA_DIEN = 4000;
-        const GIA_NUOC = 12000;
+        const GIA_PHONG = 600000, GIA_MANG = 30000, GIA_VS = 5000, GIA_DIEN = 4000, GIA_NUOC = 12000;
 
         let soPhong = document.getElementById('soPhong').value || "...";
         let soNguoi = parseInt(document.getElementById('soNguoiMang').value) || 0;
@@ -103,21 +105,54 @@
         let nMoi = parseFloat(document.getElementById('nuocMoi').value) || 0;
         let nCu = parseFloat(document.getElementById('nuocCu').value) || 0;
 
-        let hieuDien = Math.max(0, dMoi - dCu);
-        let hieuNuoc = Math.max(0, nMoi - nCu);
+        let hDien = Math.max(0, dMoi - dCu);
+        let hNuoc = Math.max(0, nMoi - nCu);
 
-        let thanhTienMang = soNguoi * GIA_MANG_NGUOI;
-        let thanhTienDien = hieuDien * GIA_DIEN;
-        let thanhTienNuoc = hieuNuoc * GIA_NUOC;
-        let tongCong = GIA_PHONG + GIA_VS + thanhTienMang + thanhTienDien + thanhTienNuoc;
+        let tMang = soNguoi * GIA_MANG;
+        let tDien = hDien * GIA_DIEN;
+        let tNuoc = hNuoc * GIA_NUOC;
+        let tong = GIA_PHONG + GIA_VS + tMang + tDien + tNuoc;
 
         document.getElementById('resPhong').innerText = soPhong;
-        document.getElementById('chuDien').innerText = hieuDien;
-        document.getElementById('chuNuoc').innerText = hieuNuoc;
-        document.getElementById('resMang').innerText = thanhTienMang.toLocaleString();
-        document.getElementById('resDien').innerText = thanhTienDien.toLocaleString();
-        document.getElementById('resNuoc').innerText = thanhTienNuoc.toLocaleString();
-        document.getElementById('resTong').innerText = tongCong.toLocaleString();
+        document.getElementById('chuDien').innerText = hDien;
+        document.getElementById('chuNuoc').innerText = hNuoc;
+        document.getElementById('resMang').innerText = tMang.toLocaleString();
+        document.getElementById('resDien').innerText = tDien.toLocaleString();
+        document.getElementById('resNuoc').innerText = tNuoc.toLocaleString();
+        document.getElementById('resTong').innerText = tong.toLocaleString();
+    }
+
+    async function taiHoaDon() {
+        const area = document.getElementById('captureArea');
+        const inputs = area.querySelectorAll('input');
+        
+        // Tạo hiệu ứng tạm thời để chụp ảnh rõ nét
+        const originalDisplays = [];
+        inputs.forEach(input => {
+            const span = document.createElement('span');
+            span.innerText = input.value || "0";
+            span.style.cssText = "font-size:16px; padding:12px; display:inline-block; border:1px solid #ddd; border-radius:8px; width:100%; background:#f9f9f9; box-sizing:border-box;";
+            
+            originalDisplays.push({input, span});
+            input.style.display = 'none';
+            input.parentNode.insertBefore(span, input);
+        });
+
+        html2canvas(area, { 
+            scale: 3, 
+            backgroundColor: "#ffffff" 
+        }).then(canvas => {
+            const link = document.createElement('a');
+            link.download = `HoaDon_Phong_${document.getElementById('soPhong').value || '01'}.png`;
+            link.href = canvas.toDataURL("image/png");
+            link.click();
+
+            // Khôi phục lại các ô input
+            originalDisplays.forEach(({input, span}) => {
+                input.style.display = 'block';
+                span.remove();
+            });
+        });
     }
 </script>
 
